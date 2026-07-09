@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulating Stuff for Fun and Profit, Part 2 — Philipp Stärk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script>
+    MathJax = { tex: { inlineMath: [['\u005c(', '\u005c)']],
+                       displayMath: [['\u005c[', '\u005c]'], ['$$', '$$']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="../../" class="brand">Philipp Stärk</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="../../index.html#projects">Projects</a>
+        <a href="../../index.html#publications">Publications</a>
+        <a href="../../index.html#about">About</a>
+        <a href="../../blog/" class="active">Blog</a>
+        <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener" class="btn-ghost">Scholar</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <main class="post-container">
+    <a href="../../blog/" class="post-back">&larr; Back to blog</a>
+    <header class="post-header">
+      <h1>Simulating Stuff for Fun and Profit, Part 2</h1>
+      <p class="post-meta">30 May 2020</p>
+    </header>
+    <article class="post">
+<p>So in the last post we “handwavingly” derived how one could come up
+with a integration scheme to solve Newtons equation of motion for a
+body. In this post we want to implement such a code in python. The end
+result of our effort will hopefully be a code capable of simulating a
+falling ball (perhaps even with added air resistance?). To start of lets
+take a look again at the equation that we had derived:</p>
+<p><span class="math display">\[
+\begin{gather}
+\frac{x(t+\Delta t) - x(t)}{\Delta t} = gt + v_0 \Leftrightarrow x(t +
+\Delta t) = gt\Delta t + v_0 \Delta t + x(t)
+\end{gather}
+\]</span></p>
+<p>Remember that this formula was derived when we started with the
+assumption of a constant force acting on the body. This scheme might be
+very well implemented in some programming language already, but we want
+to make it more general. Let’s start again with Newtons law of
+motion:</p>
+<p><span class="math display">\[
+\begin{equation}
+F = ma \Leftrightarrow a =  \dot{v} = F/m
+\end{equation}
+\]</span></p>
+<p>If you now want to utilize the same trick as last time and
+approximate the derivative in time by a finite difference quotient, you
+arrive at:</p>
+<p><span class="math display">\[
+\begin{gather}
+\dot{v} = F/m , \text{ use } \dot{v} \approx \frac{v(t+\Delta t) -
+v(t)}{\Delta t}\\
+\implies \frac{v(t+\Delta t) - v(t)}{\Delta t} = F/m \\
+\implies v(t+\Delta t) = \frac{F}{m} \Delta t + v(t)
+\end{gather}
+\]</span></p>
+<p>This above formula is remarkable, because it shows us that we might
+use the same tricks to arrive at a even more general expression. Given
+<em>any</em> (!) force on the particle we can approximate the particles
+velocity at the next time step. Now the term that we had before
+calculated the position of the particle and usually the position is also
+the thing of interest in a particular calculation (think for example
+calculating were a bullet might land after it has been fired from a
+gun). Luckily for us calculating the postion is also pretty easy once we
+have the velocity. If you could follow the (pretty fast and sloppy)
+derivation so far, then you might have already have the main gist of how
+one could calculate the position. We basically apply the same trick
+again:</p>
+<p><span class="math display">\[
+\begin{equation}
+v = \dot{x} \text{ and thus}\\
+\frac{x(t+\Delta t) - x(t)}{\Delta t} \approx v\\
+\implies x(t+ \Delta t) = v\Delta t + x(t)
+\end{equation}
+\]</span></p>
+<p>Now we are basically done deriving a general numerical integration
+scheme. Given that we now what force is acting on a given particle we
+may calculate its force at the next step in time. And because this
+enable us to calculate the velocity, we can then also calculate the
+position at each point in time. This scheme is known as the <a
+href="https://en.wikipedia.org/wiki/Euler_method">“Euler scheme”</a> and
+for reference let’s write the important equations down again:</p>
+<p><span class="math display">\[
+\begin{gather}
+v(t+\Delta t) = \frac{F}{m} \Delta t + v(t) \\
+x(t+ \Delta t) = v\Delta t + x(t)
+\end{gather}
+\]</span></p>
+<p>Now we could just go ahead and implement the two equations easily,
+but it turns out that they are a bit flawed. I won’t go into too much
+detail why, but basically the normal “Euler scheme” is not energy
+conserving, which has to do with what is called <a
+href="https://en.wikipedia.org/wiki/Ergodicity">“ergodicity” of the
+equation</a>. Not having energy conservation is of course a huge
+problem, because for one it is unphysical, and secondly it might cause a
+simulation to “explode”. Unphysical explosions in simulations can happen
+if there is a slight buildup of energy during each time step (because
+the scheme is not energy conserving, the energy does not stay the same),
+until the energy exponentially builds up as the numerical error gets
+larger and larger with the increasing energy in the system. That is
+something that we want to prevent at all costs, obviously.</p>
+<p>Luckily for us there is a slight variation to the scheme, which is
+known as the <a
+href="https://en.wikipedia.org/wiki/Verlet_integration">“Velocity-Verlet”</a>-algorithm,
+which <em>is</em> energy conserving. The basic idea of this modification
+is to calculate the velocity at “half the time step”, which will
+hopefully become clear once I write the algorithm down:</p>
+<p><span class="math display">\[
+\begin{gather}
+v(t + \frac{1}{2} \Delta t) = v (t) + \frac{1}{2} a(t) \Delta t\\
+x(t +\Delta t) = x(t) + v(t + \frac{1}{2} \Delta t) \Delta t\\
+a(t+\Delta t) = F/m\\
+v(t+\Delta t) = v (t + \frac{1}{2}\Delta t ) + \frac{1}{2} a (t+ \Delta
+t) \Delta t
+\end{gather}
+\]</span></p>
+<p>Now while this might look like a lot more steps than the Euler
+method, it is almost the same beast. Note that we also calculate the
+velocity and from that the position of the particle. The only thing that
+is new here is that we first calculate the velocity at half the time
+step <span class="math display">\[v(t + \frac{1}{2} \Delta t)\]</span>
+and use that as the basis for our positional calculation. After we have
+updated the position, we update the velocity for the next step (<span
+class="math display">\[v(t + \Delta t)\]</span>), using the newly
+calculated acceleration. It might take a bit to get used to all that but
+you will soon see that implementing this is a breeze.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Let’s get right into it. We could expect our code to be modularized
+in a function <code>verlet(v, x, a, force, m)</code>. This function will
+get the velocity <code>v</code>, the position <code>x</code> and the
+acceleration <code>a</code> of the previous time step (and of course the
+mass of the particle). We also want to be able to specify which force
+will be used to update the velocity, so <code>force</code> ideally will
+be a function that we pass to <code>verlet</code>. A naive
+implementation in python might look something like this:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verlet(v, x, a, force, m, dt<span class="op">=</span><span class="fl">.001</span>):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> v <span class="op">+</span> <span class="fl">.5</span><span class="op">*</span>a<span class="op">*</span>dt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> v <span class="op">*</span> dt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> force(v, x, a, m)<span class="op">/</span>m</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> v <span class="op">+</span> <span class="fl">.5</span><span class="op">*</span>a<span class="op">*</span>dt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v, x, a </span></code></pre></div>
+<p>Simple, right? Notice that we expect <code>force</code> to be a
+function with arguments <code>(v, x, a, m)</code> which is a nice way of
+allowing the programmer to specify any force that depends on the
+velocity, position, acceleration and mass of the particle. Furthermore
+we also specify the time step <code>dt</code> as a keyword argument. We
+always want to be able to control the time step, because as mentioned
+above the value of that step has to be carefully chosen for the specific
+problem at hand. Having a time step that is too large makes our solution
+imprecise or worse make the whole solution unstable (see “explode” as
+written above).</p>
+<p>So now that we have written these six lines of code, let us test
+them. To do so, we first have to specify a force of our specific system.
+For our case of a constant force on the particle (gravity) we can just
+simply write another function like this:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> const_force(v, x, a, m, g<span class="op">=-</span><span class="dv">1</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> g<span class="op">*</span>m</span></code></pre></div>
+<p>Now we are more or less done. To test this code, we may specify the
+starting conditions for the position, acceleration and velocity. Let’s
+for example say that we want to simulate a diver jumping from a height
+of 10 simulation units (Simulation units are just arbitrary units.
+Usually we match those units to some units in the real world. For
+example 10 simulation units in our case could mean 10 meters. You just
+have to make sure that every unit is correct in relation to the unit
+that you fix to real world parameters.) If we also say that the diver
+starts with a initial velocity of 0, and immediately feels the
+ackeraltion by gravity we may end up with initial parameters like:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> g<span class="op">*</span>m</span></code></pre></div>
+<p>Then we just have to call the verlet integrator function over and
+over again and we have our first simulation. If we want to simulate for
+5000 time steps, we could for example write the following code:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> g<span class="op">*</span>m</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>vs <span class="op">=</span> np.empty((T))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> np.empty((T))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(T):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    v, x, a <span class="op">=</span> verlet(v, x, a, const_force, m)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    vs[i] <span class="op">=</span> v</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    xs[i] <span class="op">=</span> x</span></code></pre></div>
+<p>Note how we also created two numpy arrays (<code>np.empty()</code>)
+which are going to store the velocities and positions over all time
+steps. If you want to copy the full example code, you can find the
+source <a href="/assets/simulating.py">here</a>. Using a plotting
+library, we can then plot the trajectory and evolution of the velocity,
+which is shown in fig.1.</p>
+<figure><img src="../../assets/simulating-trajectory.png" alt="" loading="lazy" /><figcaption><b>Fig.1</b>: Plot of location and velocity of the given particle. </figcaption></figure>
+<p>That is already looking pretty nice. From the analytical solution
+that we had derived in the last post, we had already expected a linear
+dependence on time for the velocity, and a quadratic dependence on time
+for the position and we are evidently getting that here. To further see
+how good our approximate solution is, I also plotted the analytical
+solution together with the simulation results in fig.2, which evidently
+shows that our solution is practically indistinguishable from the
+“correct” solution.</p>
+<figure><img src="../../assets/simulating-comparison.png" alt="" loading="lazy" /><figcaption><b>Fig.2</b>: Comparison of analytical solution and simulation results </figcaption></figure>
+
+    </article>
+  </main>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Philipp Stärk</p>
+      <p class="footer-sub">Source on request.</p>
+    </div>
+  </footer>
+  <script src="../../script.js"></script>
+</body>
+</html>

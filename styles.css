@@ -117,6 +117,11 @@ ul {
   color: var(--text);
 }
 
+.nav-links > a.active {
+  color: var(--text);
+  font-weight: 600;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -823,4 +828,160 @@ ul {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+}
+
+/* ============ BLOG ============ */
+.post-container {
+  max-width: 720px;
+  margin: 56px auto 80px;
+  padding: 0 24px;
+}
+
+.post-back {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.post-back:hover {
+  color: var(--accent);
+}
+
+.post-header {
+  margin-bottom: 36px;
+}
+
+.post-header h1 {
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.post-meta {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.post {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #1f2937;
+}
+
+.post p {
+  margin-bottom: 1.3em;
+}
+
+.post h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 1.9em 0 0.7em;
+  letter-spacing: -0.01em;
+}
+
+.post h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 1.6em 0 0.6em;
+}
+
+.post a {
+  color: var(--accent);
+}
+
+.post code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--bg-alt);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.post pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 16px 18px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 1.3em 0;
+  line-height: 1.5;
+}
+
+.post pre code {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.post figure {
+  margin: 2em 0;
+  text-align: center;
+}
+
+.post figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.post figcaption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.post figcaption a {
+  color: var(--accent);
+}
+
+.post mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+}
+
+/* Blog listing */
+.blog-list {
+  max-width: 720px;
+}
+
+.blog-card {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 26px;
+  margin-bottom: 18px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  color: inherit;
+}
+
+.blog-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.blog-card .blog-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.blog-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.blog-card p {
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-size: 0.95rem;
 }
