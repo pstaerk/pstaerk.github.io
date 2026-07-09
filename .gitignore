@@ -1,4 +1,16 @@
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Local dependencies (if ever added)
+node_modules/

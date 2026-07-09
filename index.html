@@ -1,9 +1,511 @@
----
-layout: default
-title: My personal Website
----
-<div class="blurb">
-	<h1>Hi There!</h1>
-	<p>This is where I will write lots of interesting stuff <a href="/about">About me.</a></p>
-        <p>See for example my small series on the <a href="/blog/2020/05/30/Simulating2">basics of simulation.</a></p>
-</div><!-- /.blurb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Philipp Stärk, Computational Physicist & ML Researcher. Projects, publications, and notes on materials modelling." />
+  <title>Philipp Stärk, Computational Physicist & ML Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand">Philipp Stärk</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#about">About</a>
+        <!-- TODO: host your CV PDF (e.g. cv.pdf) and point this to it -->
+        <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener" class="btn-ghost">Scholar</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Hi, I'm</p>
+          <h1>Dr. Philipp Stärk</h1>
+          <p class="hero-tagline">Computational Physicist &amp; ML Researcher</p>
+          <p class="hero-bio">
+            I research how machine learning can predict the properties of
+            materials and molecules, combining atomistic simulations,
+            machine-learned interatomic potentials, and large-scale data-driven
+            modelling. I recently completed my PhD at the University of
+            Stuttgart, with a research stay at the COSMO Laboratory at EPFL.
+          </p>
+          <div class="hero-links">
+            <a href="#projects" class="btn-primary">See my work</a>
+            <a href="#publications" class="btn-ghost">Publications</a>
+          </div>
+          <div class="socials">
+            <a href="#" data-mail="philipp.staerk|pm.me" title="Email">
+              <svg viewBox="0 0 24 24" class="icon"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+            </a>
+            <a href="https://github.com/pstaerk" target="_blank" rel="noopener" title="GitHub">
+              <svg viewBox="0 0 24 24" class="icon"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+            </a>
+            <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener" title="Google Scholar">
+              <svg viewBox="0 0 24 24" class="icon"><path d="M12 3 1 9l4.8 2.9A6 6 0 0 0 12 18a6 6 0 0 0 6.2-6.1l1.8-.1c0 4.4-3.6 8.2-8 8.2s-8-3.6-8-8h2a6 6 0 0 0 6 6 6 6 0 0 0 6-6c0-1.2-.4-2-1.2-2L12 15 1 9l11-6 11 6-11 6-3-1.6V12l3 1.6L19.5 9 12 3Z"/></svg>
+            </a>
+            <!-- TODO: add your LinkedIn URL once you have one
+            <a href="https://linkedin.com/in/..." target="_blank" rel="noopener" title="LinkedIn">
+              <svg viewBox="0 0 24 24" class="icon"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.3 18.3V10H5.6v8.3h2.7ZM7 8.8a1.6 1.6 0 1 0 0-3.1 1.6 1.6 0 0 0 0 3.1Zm11.3 9.5v-4.5c0-2.4-1.3-3.5-3-3.5a2.6 2.6 0 0 0-2.4 1.3V10h-2.7v8.3h2.7v-4.4c0-1.2.2-2.3 1.7-2.3s1.4 1.3 1.4 2.4v4.3h2.7Z"/></svg>
+            </a>
+            -->
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="avatar-ring">
+            <img src="avatar.jpg" alt="Portrait of Philipp Stärk" class="avatar" />
+          </div>
+        </div>
+      </div>
+      <div class="hero-wave" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">// Research &amp; Projects</span>
+          <h2>Projects</h2>
+          <p class="section-sub">A selection of my work spanning machine-learned interatomic potentials, enhanced-sampling simulation, and open-source scientific software.</p>
+        </div>
+
+        <div class="project-grid">
+          <!-- Project 1 (featured, wide) -->
+          <article class="project-card featured">
+            <div class="project-thumb" style="background: #ffffff">
+              <img src="gnn-abstract.png" alt="Graphical abstract: long-range equivariant GNN for predicting electric-field response and IR spectra" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Long-Range Equivariant GNNs for Materials</h3>
+                <span class="year-badge">2022–2026</span>
+              </div>
+              <p class="project-desc">
+                A long-range equivariant graph neural network (JAX / Flax /
+                e3x) for materials science, with a focus on accurate
+                long-range modelling. The model is in active use to predict
+                electric-field response and IR spectra. Developed in
+                collaboration with
+                <a href="https://www.epfl.ch/labs/cosmo/" target="_blank" rel="noopener">the COSMO Laboratory at EPFL</a> (with Michele Ceriotti).
+              </p>
+              <div class="tags">
+                <span>JAX</span><span>Flax</span><span>e3x</span><span>Equivariant GNNs</span><span>MLIPs</span>
+              </div>
+              <div class="project-links">
+                <a href="https://doi.org/10.1039/d6cp00911e" target="_blank" rel="noopener">Read the paper (PCCP 2026) &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card">
+            <div class="project-thumb" style="background: #ffffff">
+              <img src="wl-logo.svg" alt="Logo of the lammps_wang_landau project" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Wang–Landau Sampling for LAMMPS</h3>
+                <span class="year-badge">C++</span>
+              </div>
+              <p class="project-desc">
+                An enhanced-sampling Monte Carlo framework in C++ for
+                electrolyte and confinement systems, reaching regimes that
+                standard methods cannot access.
+              </p>
+              <div class="tags"><span>C++</span><span>HPC</span><span>Monte Carlo</span><span>Enhanced Sampling</span></div>
+              <div class="project-links">
+                <a href="https://github.com/pstaerk/lammps_wang_landau" target="_blank" rel="noopener">Source &rarr;</a>
+                <a href="#publications">Related publications &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card">
+            <div class="project-thumb" style="background: #ffffff">
+              <img src="maicos-logo.svg" alt="MAICoS logo" />
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>MAICoS &amp; MDAnalysis</h3>
+                <span class="year-badge">OSS</span>
+              </div>
+              <p class="project-desc">
+                Contributor to MAICoS and MDAnalysis, open-source tools for
+                molecular dynamics analysis. Authored API documentation,
+                tutorials, and standardised data workflows.
+              </p>
+              <div class="tags"><span>Python</span><span>Open Source</span><span>MDAnalysis</span><span>MAICoS</span></div>
+              <div class="project-links">
+                <a href="https://maicos-analysis.org/stable/index.html" target="_blank" rel="noopener">Docs &rarr;</a>
+                <a href="https://github.com/maicos-devel/maicos" target="_blank" rel="noopener">Source &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card">
+            <div class="project-thumb" style="background: linear-gradient(135deg,#f59e0b,#ef4444)">
+              <span class="thumb-emoji">📊</span>
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Automated HPC Data Pipelines</h3>
+                <span class="year-badge">Infra</span>
+              </div>
+              <p class="project-desc">
+                Pipelines for processing terabyte-scale datasets on HPC
+                systems, with reproducible (FAIR) data infrastructure and
+                statistically sound model evaluation.
+              </p>
+              <div class="tags"><span>HPC</span><span>SLURM</span><span>FAIR Data</span><span>Python</span></div>
+              <div class="project-links">
+                <!-- TODO: link to repo / write-up when available -->
+                <a href="#about">More in About &rarr;</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PUBLICATIONS ============ -->
+    <section id="publications" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">// Publications</span>
+          <h2>Research &amp; Writing</h2>
+          <p class="section-sub">
+            Selected recent publications. Click <strong>Abstract</strong> for a
+            plain-language explanation, or <strong>BibTeX</strong> to cite.
+            Full list on
+            <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.
+          </p>
+        </div>
+
+        <div class="pub-list">
+          <!-- Publication: Simultaneous Learning -->
+          <article class="pub-card">
+            <div class="pub-year">2026</div>
+            <div class="pub-content">
+              <h3>Simultaneous Learning of Static and Dynamic Charges</h3>
+              <p class="pub-authors"><span class="me">Philipp Stärk</span>, H. Stooß, M. F. Langer, E. Rumiantsev, A. Schlaich, M. Ceriotti, P. Loche</p>
+              <p class="pub-venue"><em>Physical Chemistry Chemical Physics</em> 28 (26), 16249&ndash;16258, 2026</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1039/d6cp00911e" target="_blank" rel="noopener">DOI &rarr;</a>
+                <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+                <button class="toggle-btn" data-toggle="abstract">Abstract</button>
+                <button class="toggle-btn" data-toggle="bibtex">BibTeX</button>
+              </div>
+              <p class="pub-detail" data-detail="abstract">
+                Long-range interactions and electric response are essential for
+                accurate modeling of condensed-phase systems, but capturing them
+                efficiently remains a challenge for atomistic machine learning.
+                This work introduces a machine-learning framework that jointly
+                predicts static and dynamic (response) charge distributions,
+                enabling accurate modelling of electric-field response and IR
+                spectra.
+                <!-- TODO: feel free to expand this plain-language summary -->
+              </p>
+              <pre class="pub-detail bibtex" data-detail="bibtex">@article{stark2026charges,
+  title   = {Simultaneous Learning of Static and Dynamic Charges},
+  author  = {St{\"a}rk, Philipp and Stoo{\ss}, Henrik and Langer, Marcel F. and Rumiantsev, Egor and Schlaich, Alexander and Ceriotti, Michele and Loche, Philip},
+  journal = {Physical Chemistry Chemical Physics},
+  volume  = {28},
+  number  = {26},
+  pages   = {16249--16258},
+  year    = {2026},
+  doi     = {10.1039/d6cp00911e}
+}</pre>
+            </div>
+          </article>
+
+          <!-- Publication: Static dielectric permittivity -->
+          <article class="pub-card">
+            <div class="pub-year">2026</div>
+            <div class="pub-content">
+              <h3>Static Dielectric Permittivity Profiles and Coarse-Graining Approaches for Water in Graphene Slit Pores</h3>
+              <p class="pub-authors"><span class="me">Philipp Stärk</span>, H. Stooß, P. Loche, D. J. Bonthuis, R. R. Netz, A. Schlaich</p>
+              <p class="pub-venue"><em>Chemical Physics Reviews</em> 7 (1), 2026</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1063/5.0315836" target="_blank" rel="noopener">DOI &rarr;</a>
+                <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+                <button class="toggle-btn" data-toggle="abstract">Abstract</button>
+                <button class="toggle-btn" data-toggle="bibtex">BibTeX</button>
+              </div>
+              <!-- TODO: replace this placeholder with a plain-language explanation -->
+              <p class="pub-detail" data-detail="abstract">
+                <em>(Plain-language summary coming soon. Add your explanation
+                of what this paper does and why it matters here.)</em>
+              </p>
+              <pre class="pub-detail bibtex" data-detail="bibtex">@article{stark2026permittivity,
+  title   = {Static Dielectric Permittivity Profiles and Coarse-Graining Approaches for Water in Graphene Slit Pores},
+  author  = {St{\"a}rk, Philipp and Stoo{\ss}, H. and Loche, P. and Bonthuis, D. J. and Netz, R. R. and Schlaich, A.},
+  journal = {Chemical Physics Reviews},
+  volume  = {7},
+  number  = {1},
+  year    = {2026},
+  doi     = {10.1063/5.0315836}
+}</pre>
+            </div>
+          </article>
+
+          <!-- Publication: Phase diagram & criticality -->
+          <article class="pub-card">
+            <div class="pub-year">2026</div>
+            <div class="pub-content">
+              <h3>Phase Diagram and Criticality of the Modified Primitive Electrolyte Model in Bulk and in Inert and Conducting Confinement</h3>
+              <p class="pub-authors"><span class="me">Philipp Stärk</span>, A. Schlaich</p>
+              <p class="pub-venue"><em>The Journal of Chemical Physics</em> 164 (6), 2026</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1063/5.0314875" target="_blank" rel="noopener">DOI &rarr;</a>
+                <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+                <button class="toggle-btn" data-toggle="abstract">Abstract</button>
+                <button class="toggle-btn" data-toggle="bibtex">BibTeX</button>
+              </div>
+              <!-- TODO: replace this placeholder with a plain-language explanation -->
+              <p class="pub-detail" data-detail="abstract">
+                <em>(Plain-language summary coming soon. Add your explanation
+                of what this paper does and why it matters here.)</em>
+              </p>
+              <pre class="pub-detail bibtex" data-detail="bibtex">@article{stark2026phase,
+  title   = {Phase Diagram and Criticality of the Modified Primitive Electrolyte Model in Bulk and in Inert and Conducting Confinement},
+  author  = {St{\"a}rk, Philipp and Schlaich, Alexander},
+  journal = {The Journal of Chemical Physics},
+  volume  = {164},
+  number  = {6},
+  year    = {2026},
+  doi     = {10.1063/5.0314875}
+}</pre>
+            </div>
+          </article>
+
+          <!-- Software: MAICoS -->
+          <article class="pub-card">
+            <div class="pub-year">2024</div>
+            <div class="pub-content">
+              <h3>MAICoS: Materials Analysis (python) InterfaCe for Scientific Computing</h3>
+              <p class="pub-authors">P. Loche, A. Schlaich, H. Stooß, S. Gravelle, M. Becker, <span class="me">P. Stärk</span>, S. Velpuri</p>
+              <p class="pub-venue"><em>Open-source analysis software</em> &middot; MDAnalysis ecosystem</p>
+              <div class="pub-links">
+                <a href="https://maicos-analysis.org/" target="_blank" rel="noopener">Website</a>
+                <a href="https://github.com/maicos-devel/maicos" target="_blank" rel="noopener">Source</a>
+                <button class="toggle-btn" data-toggle="abstract">About</button>
+              </div>
+              <p class="pub-detail" data-detail="abstract">
+                MAICoS is an open-source Python library for the analysis of
+                molecular dynamics simulations of interfacial and confined
+                systems, built on top of MDAnalysis. I contributed analysis
+                modules, documentation, and standardised data workflows used by
+                the group and the wider community.
+              </p>
+            </div>
+          </article>
+
+          <!-- Publication: Three-phase contact potential -->
+          <article class="pub-card">
+            <div class="pub-year">2023</div>
+            <div class="pub-content">
+              <h3>The Three-Phase Contact Potential Difference Modulates the Water Surface Charge</h3>
+              <p class="pub-authors">V. Artemov, L. Frank, R. Doronin, <span class="me">P. Stärk</span>, A. Schlaich, A. Andreev, et al.</p>
+              <p class="pub-venue"><em>The Journal of Physical Chemistry Letters</em> 14 (20), 4796&ndash;4802, 2023</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1021/acs.jpclett.3c00479" target="_blank" rel="noopener">DOI &rarr;</a>
+                <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+                <button class="toggle-btn" data-toggle="abstract">Abstract</button>
+                <button class="toggle-btn" data-toggle="bibtex">BibTeX</button>
+              </div>
+              <!-- TODO: replace this placeholder with a plain-language explanation -->
+              <p class="pub-detail" data-detail="abstract">
+                <em>(Plain-language summary coming soon. Add your explanation
+                of what this paper does and why it matters here.)</em>
+              </p>
+              <pre class="pub-detail bibtex" data-detail="bibtex">@article{artemov2023contact,
+  title   = {The Three-Phase Contact Potential Difference Modulates the Water Surface Charge},
+  author  = {Artemov, V. and Frank, L. and Doronin, R. and St{\"a}rk, P. and Schlaich, A. and Andreev, A. and others},
+  journal = {The Journal of Physical Chemistry Letters},
+  volume  = {14},
+  number  = {20},
+  pages   = {4796--4802},
+  year    = {2023},
+  doi     = {10.1021/acs.jpclett.3c00479}
+}</pre>
+            </div>
+          </article>
+
+          <!-- Publication: Squirmers mobility reversal -->
+          <article class="pub-card">
+            <div class="pub-year">2019</div>
+            <div class="pub-content">
+              <h3>Hydrodynamic Mobility Reversal of Squirmers Near Flat and Curved Surfaces</h3>
+              <p class="pub-authors">M. Kuron, <span class="me">Philipp Stärk</span>, C. Holm, J. de Graaf</p>
+              <p class="pub-venue"><em>Soft Matter</em> 15 (29), 5908&ndash;5920, 2019</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1039/c9sm00692c" target="_blank" rel="noopener">DOI &rarr;</a>
+                <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+                <button class="toggle-btn" data-toggle="abstract">Abstract</button>
+                <button class="toggle-btn" data-toggle="bibtex">BibTeX</button>
+              </div>
+              <!-- TODO: replace this placeholder with a plain-language explanation -->
+              <p class="pub-detail" data-detail="abstract">
+                <em>(Plain-language summary coming soon. Add your explanation
+                of what this paper does and why it matters here.)</em>
+              </p>
+              <pre class="pub-detail bibtex" data-detail="bibtex">@article{kuron2019mobility,
+  title   = {Hydrodynamic Mobility Reversal of Squirmers Near Flat and Curved Surfaces},
+  author  = {Kuron, M. and St{\"a}rk, Philipp and Holm, C. and de Graaf, J.},
+  journal = {Soft Matter},
+  volume  = {15},
+  number  = {29},
+  pages   = {5908--5920},
+  year    = {2019},
+  doi     = {10.1039/c9sm00692c}
+}</pre>
+            </div>
+          </article>
+
+          <!-- Publication: Lattice Boltzmann squirmers -->
+          <article class="pub-card">
+            <div class="pub-year">2019</div>
+            <div class="pub-content">
+              <h3>A Lattice Boltzmann Model for Squirmers</h3>
+              <p class="pub-authors">M. Kuron, <span class="me">Philipp Stärk</span>, C. Burkard, J. de Graaf, C. Holm</p>
+              <p class="pub-venue"><em>The Journal of Chemical Physics</em> 150 (14), 2019</p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1063/1.5085765" target="_blank" rel="noopener">DOI &rarr;</a>
+                <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+                <button class="toggle-btn" data-toggle="abstract">Abstract</button>
+                <button class="toggle-btn" data-toggle="bibtex">BibTeX</button>
+              </div>
+              <!-- TODO: replace this placeholder with a plain-language explanation -->
+              <p class="pub-detail" data-detail="abstract">
+                <em>(Plain-language summary coming soon. Add your explanation
+                of what this paper does and why it matters here.)</em>
+              </p>
+              <pre class="pub-detail bibtex" data-detail="bibtex">@article{kuron2019lattice,
+  title   = {A Lattice Boltzmann Model for Squirmers},
+  author  = {Kuron, M. and St{\"a}rk, Philipp and Burkard, C. and de Graaf, J. and Holm, C.},
+  journal = {The Journal of Chemical Physics},
+  volume  = {150},
+  number  = {14},
+  year    = {2019},
+  doi     = {10.1063/1.5085765}
+}</pre>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT (compact) ============ -->
+    <section id="about" class="section">
+      <div class="container about-grid">
+        <div class="about-intro">
+          <span class="section-label">// About</span>
+          <h2>About</h2>
+          <p>
+            I'm a computational physicist and machine-learning researcher
+            specialising in material science, physical chemistry, and HPC
+            simulations. My work spans atomistic simulations, machine-learned
+            interatomic potentials, stochastic sampling methods, and large-scale
+            data-driven modelling.
+          </p>
+          <p>
+            I recently completed a joint PhD in Simulation Science and Physics at
+            the University of Stuttgart. A full CV with teaching, conferences, and
+            more is available on request. In the meantime,
+            <!-- TODO: host your CV PDF (e.g. cv.pdf) and link it here -->
+            <a href="https://scholar.google.com/citations?user=xMfxQa4AAAAJ&hl=en" target="_blank" rel="noopener">see my Scholar profile</a>.
+          </p>
+          <div class="skill-tags">
+            <span>Python</span><span>C/C++</span><span>JAX</span><span>Flax</span><span>e3x</span>
+            <span>PyTorch</span><span>NumPy</span><span>SciPy</span><span>MDAnalysis</span>
+            <span>DFT</span><span>Molecular Dynamics</span><span>Monte Carlo</span><span>SLURM</span><span>Docker</span><span>Git</span>
+          </div>
+        </div>
+
+        <div class="about-side">
+          <!-- Experience (academic positions) -->
+          <div class="mini-block">
+            <h3>Experience</h3>
+            <ul class="mini-list">
+              <li>
+                <div class="mini-head">
+                  <strong>Postdoctoral Researcher</strong>
+                  <span class="mini-date">Apr 2026 – Jun 2026</span>
+                </div>
+                <span class="mini-org">Technical University of Hamburg</span>
+              </li>
+              <li>
+                <div class="mini-head">
+                  <strong>PhD Researcher</strong>
+                  <span class="mini-date">2021–2026</span>
+                </div>
+                <span class="mini-org">University of Stuttgart · SimTech / ICP</span>
+              </li>
+              <li>
+                <div class="mini-head">
+                  <strong>Visiting Researcher</strong>
+                  <span class="mini-date">2024 + 2025</span>
+                </div>
+                <span class="mini-org">EPFL · COSMO Laboratory · Lausanne, CH</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Education (condensed) -->
+          <div class="mini-block">
+            <h3>Education</h3>
+            <ul class="mini-list">
+              <li>
+                <div class="mini-head">
+                  <strong>PhD, Simulation Science &amp; Physics</strong>
+                  <span class="mini-date">2021–2026</span>
+                </div>
+                <span class="mini-org">University of Stuttgart · <em>Defended March 2026</em></span>
+              </li>
+              <li>
+                <div class="mini-head">
+                  <strong>M.Sc. Physics</strong>
+                  <span class="mini-date">2018–2021</span>
+                </div>
+                <span class="mini-org">University of Stuttgart · ICP</span>
+              </li>
+              <li>
+                <div class="mini-head">
+                  <strong>B.Sc. Physics</strong>
+                  <span class="mini-date">2015–2018</span>
+                </div>
+                <span class="mini-org">University of Stuttgart · ICP</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Philipp Stärk</p>
+      <p class="footer-sub">Source on request.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
